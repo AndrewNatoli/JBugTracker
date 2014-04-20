@@ -13,6 +13,7 @@ public class OverviewView extends JPanel {
     protected ArrayList<OverviewIssueComponent> issueList = new ArrayList<OverviewIssueComponent>();
 
     public OverviewView() {
+        setMaximumSize(new Dimension(510,50));
         setLayout(new GridLayout(1,1));
     }
 

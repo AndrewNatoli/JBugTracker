@@ -15,9 +15,13 @@ public class OverviewIssueComponent extends JPanel {
 
     public OverviewIssueComponent(int issue_id) {
         IssueModel issue = new IssueModel(issue_id);
-        setMinimumSize(new Dimension(700,50));
+        setMaximumSize(new Dimension(500,75));
         setLayout(new BorderLayout());
-        lbl_title = new JLabel(issue.getTitle());
+        String title = issue.getTitle();
+        if(title.length() > 80) {
+            title = title.substring(0,80) + "... ";
+        }
+        lbl_title = new JLabel(title);
         btn_view  = new JButton("View Ticket");
         setBorder(BorderFactory.createTitledBorder(issue.getDate_created() + " "));
 
