@@ -1,12 +1,16 @@
 package com.andrewnatoli.jbug.authentication;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.awt.*;
 import java.awt.Event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import com.andrewnatoli.jbug.resources.*;
+import com.andrewnatoli.jbug.Database;
 
 /**
  * Our main window where users will be able to register and login
@@ -61,6 +65,12 @@ public class MainMenuView extends JFrame{
         });
 
         btn_register    = new JButton("Register");
+        btn_register.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JOptionPane.showMessageDialog(null,"Coming in a future release!\nFor now login with admin@andrewnatoli.com / admin");
+            }
+        });
 
         btn_login.setBounds(480,155,100,40);
         btn_register.setBounds(590,155,100,40);
@@ -82,11 +92,11 @@ public class MainMenuView extends JFrame{
 
         //Username input
         JLabel lbl_user             = new JLabel("Username");
-        JTextField input_user       = new JTextField(30);
+        final JTextField input_user       = new JTextField(30);
 
         //Password input
         JLabel lbl_pass             = new JLabel("Password");
-        JTextField input_pass       = new JPasswordField(30);
+        final JTextField input_pass       = new JPasswordField(30);
 
 
         //Add them to the form panel
@@ -101,7 +111,20 @@ public class MainMenuView extends JFrame{
         btn_auth.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                JOptionPane.showMessageDialog(null, "Logging in!");
+                btn_auth.setEnabled(false);
+                input_user.setEnabled(false);
+                input_pass.setEnabled(false);
+                btn_cancel.setEnabled(false);
+                if(doLogin(input_user.getText(),input_pass.getText())) {
+
+                }
+                else {
+                    JOptionPane.showMessageDialog(null,"Bad username and password combination.\nTry again.");
+                    btn_auth.setEnabled(true);
+                    btn_cancel.setEnabled(true);
+                    input_user.setEnabled(true);
+                    input_pass.setEnabled(true);
+                }
             }
         });
 
@@ -123,5 +146,32 @@ public class MainMenuView extends JFrame{
         getContentPane().add(panel);
         pack();
         setVisible(true);
+    }
+
+
+    /**
+     * doLogin - Tries to authenticate the user
+     * @param username
+     * @param password
+     * @return
+     */
+    private boolean doLogin(String username, String password) {
+        String q = "SELECT * FROM jbug_users WHERE email=\""+username+"\" AND password=\""+password+"\";";
+        System.out.println(q);
+       try {
+           ResultSet rs = Database.stmt.executeQuery(q);
+           if(rs.next()) {
+               System.out.println("Found user " + rs.getString("email"));
+               return true;
+           }
+           else {
+               System.out.println("Nothing found.");
+               return false;
+           }
+       }
+       catch(SQLException e) {
+           System.err.println("Login query failed. " + e.getMessage());
+       }
+       return false;
     }
 }
