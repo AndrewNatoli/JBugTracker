@@ -1,17 +1,15 @@
 package com.andrewnatoli.jbug.authentication;
 
 import javax.swing.*;
-import javax.xml.crypto.Data;
 import java.awt.*;
-import java.awt.Event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.andrewnatoli.jbug.controlpanel.ControlPanel;
 import com.andrewnatoli.jbug.resources.*;
 import com.andrewnatoli.jbug.Database;
-import com.andrewnatoli.jbug.tracker.TrackerView;
 
 /**
  * Our main window where users will be able to register and login
@@ -117,7 +115,7 @@ public class MainMenuView extends JFrame{
                 input_pass.setEnabled(false);
                 btn_cancel.setEnabled(false);
                 if(doLogin(input_user.getText(),input_pass.getText())) {
-                    new TrackerView();
+                    new ControlPanel();
                     setVisible(false);
                 }
                 else {

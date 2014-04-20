@@ -1,11 +1,9 @@
-package com.andrewnatoli.jbug.tracker;
+package com.andrewnatoli.jbug.controlpanel;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.Event.*;
 
-public class TrackerView extends JFrame {
+public class ControlPanel extends JFrame {
 
     JPanel mainPanel;
     JPanel sidePanel;
@@ -27,7 +25,7 @@ public class TrackerView extends JFrame {
     JButton example1btn;
 
 
-    public TrackerView() {
+    public ControlPanel() {
         setTitle("JBugTracker");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(900,600);
