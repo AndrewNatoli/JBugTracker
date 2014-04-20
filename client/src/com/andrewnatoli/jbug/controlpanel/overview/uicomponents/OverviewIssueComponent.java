@@ -1,6 +1,7 @@
 package com.andrewnatoli.jbug.controlpanel.overview.uicomponents;
 
 import com.andrewnatoli.jbug.controlpanel.issue.IssueModel;
+import com.andrewnatoli.jbug.controlpanel.project.ProjectModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,6 +16,8 @@ public class OverviewIssueComponent extends JPanel {
 
     public OverviewIssueComponent(int issue_id) {
         IssueModel issue = new IssueModel(issue_id);
+        ProjectModel project = new ProjectModel(issue.getProject_id());
+
         setMaximumSize(new Dimension(500,75));
         setLayout(new BorderLayout());
         String title = issue.getTitle();
@@ -23,7 +26,7 @@ public class OverviewIssueComponent extends JPanel {
         }
         lbl_title = new JLabel(title);
         btn_view  = new JButton("View Ticket");
-        setBorder(BorderFactory.createTitledBorder(issue.getDate_created() + " "));
+        setBorder(BorderFactory.createTitledBorder(issue.getDate_created() + " - " + project.getTitle()));
 
         add(lbl_title, BorderLayout.CENTER);
         add(btn_view, BorderLayout.EAST);
