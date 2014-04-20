@@ -32,9 +32,10 @@ public class Configuration {
         String newPass = JOptionPane.showInputDialog(null,"Enter database password");
         String newDatabase= JOptionPane.showInputDialog(null,"Enter name of database");
         if (Database.testConnection(newHost,newUser,newPass,newDatabase)) {
-            JOptionPane.showMessageDialog(null,"Connection successful");
+            JOptionPane.showMessageDialog(null,"Connection successful! Click okay and we'll get the database set up for you.");
             writeConfiguration(newHost,newUser,newPass,newDatabase);
             loadConfiguration(); //Reload it
+            Database.runInstaller(); //Install it!
         }
         else {
             JOptionPane.showMessageDialog(null,"Could not connect to the database. Please try again.");
