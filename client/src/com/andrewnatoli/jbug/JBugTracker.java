@@ -7,6 +7,8 @@ import com.andrewnatoli.jbug.authentication.MainMenuView;
 public class JBugTracker {
 
     public static void main(String[] args) {
+        System.out.println("Starting JBugTracker!");
+        Configuration.loadConfiguration();
         new MainMenuView();
     }
 
