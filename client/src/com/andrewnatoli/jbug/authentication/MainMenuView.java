@@ -11,6 +11,7 @@ import java.sql.SQLException;
 
 import com.andrewnatoli.jbug.resources.*;
 import com.andrewnatoli.jbug.Database;
+import com.andrewnatoli.jbug.tracker.TrackerView;
 
 /**
  * Our main window where users will be able to register and login
@@ -116,7 +117,8 @@ public class MainMenuView extends JFrame{
                 input_pass.setEnabled(false);
                 btn_cancel.setEnabled(false);
                 if(doLogin(input_user.getText(),input_pass.getText())) {
-
+                    new TrackerView();
+                    setVisible(false);
                 }
                 else {
                     JOptionPane.showMessageDialog(null,"Bad username and password combination.\nTry again.");
