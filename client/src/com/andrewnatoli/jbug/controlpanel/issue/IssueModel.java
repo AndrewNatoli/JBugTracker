@@ -4,6 +4,7 @@ import com.andrewnatoli.jbug.Database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Comparator;
 import java.util.Date;
 
 public class IssueModel {
@@ -13,8 +14,8 @@ public class IssueModel {
     private int user_id;
     private String title;
     private String description;
-    private Date date_created;
-    private Date date_closed;
+    private String date_created;
+    private String date_closed;
     private int open;
     private int priority;
 
@@ -31,15 +32,15 @@ public class IssueModel {
                 user_id     = rs.getInt("user_id");
                 title       = rs.getString("title");
                 description = rs.getString("description");
-                date_created= rs.getDate("date_created");
-                date_closed = rs.getDate("date_closed");
+                date_created= rs.getString("date_created");
+                date_closed = rs.getString("date_closed");
                 open        = rs.getInt("open");
                 priority    = rs.getInt("priority");
 
             }
         }
         catch(SQLException e) {
-            System.err.println(e.getStackTrace());
+            e.printStackTrace();
             System.err.println("Error loading IssueModel: " + e.getMessage());
         }
     }
@@ -64,11 +65,11 @@ public class IssueModel {
         return description;
     }
 
-    public Date getDate_created() {
+    public String getDate_created() {
         return date_created;
     }
 
-    public Date getDate_closed() {
+    public String getDate_closed() {
         return date_closed;
     }
 
@@ -79,5 +80,4 @@ public class IssueModel {
     public int getPriority() {
         return priority;
     }
-
 }

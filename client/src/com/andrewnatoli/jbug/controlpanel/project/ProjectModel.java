@@ -11,7 +11,7 @@ import java.util.Date;
 public class ProjectModel {
     private int     project_id;
     private String  title;
-    private Date    date_created;
+    private String  date_created;
     private int     user_id;
 
     public ProjectModel(int id) {
@@ -20,7 +20,7 @@ public class ProjectModel {
             while(rs.next()) {
                 project_id   = rs.getInt("project_id");
                 title        = rs.getString("title");
-                date_created = rs.getDate("date_created");
+                date_created = rs.getString("date_created");
                 user_id      = rs.getInt("user_id");
             }
         }
@@ -38,7 +38,7 @@ public class ProjectModel {
         return title;
     }
 
-    public Date getDate_created() {
+    public String getDate_created() {
         return date_created;
     }
 

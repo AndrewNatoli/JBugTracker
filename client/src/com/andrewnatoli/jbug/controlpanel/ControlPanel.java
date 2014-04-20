@@ -1,5 +1,8 @@
 package com.andrewnatoli.jbug.controlpanel;
 
+import com.andrewnatoli.jbug.controlpanel.overview.OverviewController;
+import com.andrewnatoli.jbug.controlpanel.overview.OverviewView;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -23,6 +26,8 @@ public class ControlPanel extends JFrame {
     JPanel example1;
     JLabel example1label;
     JButton example1btn;
+
+    OverviewView overviewController;
 
 
     public ControlPanel() {
@@ -64,17 +69,9 @@ public class ControlPanel extends JFrame {
         statsPanel.add(closedIssueCountPanel);
 
         contentPanel = new JPanel();
-        contentPanel.setLayout(new GridLayout(1000,1));
 
-        example1 = new JPanel();
-        example1.setLayout(new BorderLayout());
-        example1label = new JLabel("Managed to break everything in the world");
-        example1btn = new JButton("View Ticket");
-        example1.setBorder(BorderFactory.createTitledBorder("2014 April 20 @ 1:24am"));
-
-        example1.add(example1label,BorderLayout.CENTER);
-        example1.add(example1btn,BorderLayout.EAST);
-        contentPanel.add(example1);
+        overviewController = new OverviewController();
+        contentPanel.add(overviewController);
 
         JScrollPane contentArea = new JScrollPane(contentPanel);
 
