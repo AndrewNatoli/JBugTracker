@@ -15,6 +15,7 @@ public class MainMenuView extends JFrame{
 
     private ImagePanel  panel;
     private JPanel      loginForm;
+    private JPanel      loginPanel;
     private JButton     btn_login;
     private JButton     btn_register;
     private JButton     btn_cancel;
@@ -35,10 +36,10 @@ public class MainMenuView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("Showing login form");
-
+                panel.setVisible(false);
                 btn_login.setVisible(false);
                 btn_register.setVisible(false);
-                loginForm.setVisible(true);
+                loginPanel.setVisible(true);
                 btn_auth.setVisible(true);
                 btn_cancel.setVisible(true);
             }
@@ -50,7 +51,8 @@ public class MainMenuView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 System.out.println("Going back!");
-                loginForm.setVisible(false);
+                loginPanel.setVisible(false);
+                panel.setVisible(true);
                 btn_auth.setVisible(false);
                 btn_cancel.setVisible(false);
                 btn_login.setVisible(true);
@@ -71,7 +73,10 @@ public class MainMenuView extends JFrame{
             NOT visible by default
          */
 
-        //Define login and register fields
+        loginPanel = new ImagePanel(new ImageIcon("jbuglogo-notext.png").getImage());
+        loginPanel.setLayout(null);
+        loginPanel.setVisible(false);
+
         loginForm = new JPanel();
         loginForm.setLayout(new GridLayout(3, 2));
 
@@ -103,12 +108,13 @@ public class MainMenuView extends JFrame{
         //Assemble the window
         loginForm.setBounds(450, 50, 300, 75);
         loginForm.setOpaque(false);
-        loginForm.setVisible(false);
+        loginPanel.setVisible(false);
+        loginPanel.add(btn_auth);
+        loginPanel.add(btn_cancel);
+        loginPanel.add(loginForm);
         btn_cancel.setVisible(false);
         btn_auth.setVisible(false);
-        panel.add(loginForm);
-        panel.add(btn_auth);
-        panel.add(btn_cancel);
+        getContentPane().add(loginPanel);
 
         /*
             Assemble the GUI and show it to our visitor
