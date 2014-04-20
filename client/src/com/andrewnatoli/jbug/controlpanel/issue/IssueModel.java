@@ -25,6 +25,7 @@ public class IssueModel {
      */
     public IssueModel(int id) {
         try {
+            System.out.println("Loading an IssueModel! ID: " + id);
             ResultSet rs = Database.stmt.executeQuery("SELECT * FROM jbug_issues WHERE issue_id=\""+id+"\";");
             while(rs.next()) {
                 issue_id    = rs.getInt("issue_id");
@@ -43,6 +44,7 @@ public class IssueModel {
             e.printStackTrace();
             System.err.println("Error loading IssueModel: " + e.getMessage());
         }
+        System.out.println("Got the IssueModel. Enjoy it.");
     }
 
     public int getIssue_id() {

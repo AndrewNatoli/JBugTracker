@@ -53,6 +53,11 @@ public class IssueView extends JPanel {
         issueInfo.add(issuePostedBy);
         issueInfo.add(issueDescription);
 
+
+        //Adds the issueInfo panel to our main, IssueView JPanel
+        add(issueInfo);
+
+        System.out.println("Boom, IssueView is visible. Enjoy it.");
     }
 
     /**

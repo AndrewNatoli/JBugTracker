@@ -18,7 +18,7 @@ public class UserModel {
         try {
             ResultSet rs = Database.stmt.executeQuery("SELECT * FROM jbug_users WHERE user_id=\""+id+"\";");
             while(rs.next()) {
-                user_id         = rs.getInt     ("issue_id");
+                user_id         = rs.getInt("user_id");
                 name            = rs.getString("name");
                 email           = rs.getString("email");
                 password        = rs.getString  ("password");

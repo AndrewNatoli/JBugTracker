@@ -1,5 +1,6 @@
 package com.andrewnatoli.jbug.controlpanel;
 
+import com.andrewnatoli.jbug.controlpanel.issue.IssueView;
 import com.andrewnatoli.jbug.controlpanel.overview.OverviewController;
 import com.andrewnatoli.jbug.controlpanel.overview.OverviewView;
 
@@ -8,24 +9,20 @@ import java.awt.*;
 
 public class ControlPanel extends JFrame {
 
-    JPanel mainPanel;
-    JPanel sidePanel;
+    private static JPanel mainPanel;
+    private static JPanel sidePanel;
 
-    JPanel statsPanel;
-    JPanel projectCountPanel;
-    JPanel openIssueCountPanel;
-    JPanel closedIssueCountPanel;
-    JPanel contentPanel;
+    private static JPanel statsPanel;
+    private static JPanel projectCountPanel;
+    private static JPanel openIssueCountPanel;
+    private static JPanel closedIssueCountPanel;
+    private static JPanel contentPanel;
 
-    JLabel projectCountLabel;
-    JLabel openIssueCountLabel;
-    JLabel closedIssueCountLabel;
+    private static JLabel projectCountLabel;
+    private static JLabel openIssueCountLabel;
+    private static JLabel closedIssueCountLabel;
 
-    JLabel logo;
-
-    JPanel example1;
-    JLabel example1label;
-    JButton example1btn;
+    private static JLabel logo;
 
     OverviewView overviewController;
 
@@ -86,10 +83,14 @@ public class ControlPanel extends JFrame {
         getContentPane().add(sidePanel,BorderLayout.EAST);
         //pack();
 
-
-
-
         setVisible(true);
+    }
+
+
+    public static void showIssue(int issue_id) {
+        System.out.println("Clicked on a ticket! Trying to open issue " + issue_id);
+        contentPanel.removeAll();
+        contentPanel.add(new IssueView(issue_id));
     }
 
 }
