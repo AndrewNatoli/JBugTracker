@@ -9,10 +9,10 @@ import java.io.*;
  * Created by andrew on 4/19/14.
  */
 public class Configuration {
-    private static String dbHost;
-    private static String dbUser;
-    private static String dbPass;
-    private static String dbDatabase;
+    private static String dbHost = "";
+    private static String dbUser = "";
+    private static String dbPass = "";
+    private static String dbDatabase = "";
 
 
     /**
@@ -27,6 +27,8 @@ public class Configuration {
             JOptionPane.showMessageDialog(null,"Welcome to JBugTracker!");
             JOptionPane.showMessageDialog(null,"Before you can start using the program we'll need to configure your database.");
         }
+        else if(isCorrupted == -2) //Can't connect to database. User chose to change credentials
+            JOptionPane.showMessageDialog(null,"Please note if you're changing servers you will need to manually move or re-install the application tables. You can find them in install.sql");
         String newHost = JOptionPane.showInputDialog(null,"Enter address:port");
         String newUser = JOptionPane.showInputDialog(null,"Enter database username");
         String newPass = JOptionPane.showInputDialog(null,"Enter database password");
@@ -35,7 +37,8 @@ public class Configuration {
             JOptionPane.showMessageDialog(null,"Connection successful! Click okay and we'll get the database set up for you.");
             writeConfiguration(newHost,newUser,newPass,newDatabase);
             loadConfiguration(); //Reload it
-            Database.runInstaller(); //Install it!
+            if(isCorrupted != -2) //Only run if we're not changing the credentials due to a failed login on launch.
+                Database.runInstaller(); //Install it!
         }
         else {
             JOptionPane.showMessageDialog(null,"Could not connect to the database. Please try again.");
@@ -93,6 +96,8 @@ public class Configuration {
                 dbUser = loader.readUTF();
                 dbPass = loader.readUTF();
                 dbDatabase = loader.readUTF();
+                //System.out.println(dbHost + " " + dbUser + " " + dbPass + " " + dbDatabase);
+                Database.setAuthentication(dbUser,dbPass,dbDatabase,dbHost);
             }
             catch(EOFException e) {
                 createNewConfiguration(1);

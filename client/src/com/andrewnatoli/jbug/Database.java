@@ -6,7 +6,7 @@ import java.io.FileReader;
 import java.sql.*;
 
 public class Database {
-
+    public static boolean connected = false;
     public static Connection conn;
     public static Statement stmt;
     public static String sql;
@@ -37,12 +37,15 @@ public class Database {
         }
         try {
             url = "jdbc:mysql://" + url + "/" + db;
+            System.out.println("Connecting to " + url);
             conn = DriverManager.getConnection(url,user,pass);
             stmt = conn.createStatement();
+            connected = true;
         }
         catch(Exception e) {
             System.err.println(e.getStackTrace());
             System.err.println(e.getMessage());
+            connected = false;
             return false;
         }
         return true;
@@ -93,7 +96,8 @@ public class Database {
             e.printStackTrace();
             System.err.println(e.getMessage());
             JOptionPane.showMessageDialog(null,"We had a problem installing the database for you.");
-            JOptionPane.showMessageDialog(null,"Please execute the contents of install.sql on your MySQL database before continuing to use JBugTracker.");
+            JOptionPane.showMessageDialog(null,"Please execute the contents of install.sql on your MySQL database and restart JBugTracker.");
+            System.exit(0);
         }
         JOptionPane.showMessageDialog(null,"Okay, you're ready to go! Enjoy using JBugTracker :)");
     }

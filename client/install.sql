@@ -5,9 +5,11 @@ CREATE TABLE `jbug_users` (
   `user_id` int(255) NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL,
   `email` varchar(60) NOT NULL,
+  `password` varchar(60) NOT NULL,
   `date_created` datetime NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+insert into `area51`.`jbug_users` ( `name`, `user_id`, `email`, `date_created`, `password`) values ( 'admin', '0', 'admin@andrewnatoli.com', '2014-04-19 23:51:00', `admin`);
 DROP TABLE IF EXISTS `jbug_projects`;
 CREATE TABLE `jbug_projects` (
   `project_id` int(255) NOT NULL AUTO_INCREMENT,
