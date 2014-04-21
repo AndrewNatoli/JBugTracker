@@ -7,8 +7,9 @@ import com.andrewnatoli.jbug.controlpanel.overview.OverviewView;
 import javax.swing.*;
 import java.awt.*;
 
-public class ControlPanel extends JFrame {
+public class ControlPanel {
 
+    public  static JFrame controlPanelFrame;
     private static JPanel mainPanel;
     private static JPanel sidePanel;
 
@@ -28,11 +29,13 @@ public class ControlPanel extends JFrame {
 
 
     public ControlPanel() {
-        setTitle("JBugTracker");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(900,600);
-        setLayout(new BorderLayout());
-        setResizable(false);
+        controlPanelFrame = new JFrame();
+        controlPanelFrame.setTitle("JBugTracker");
+        controlPanelFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        controlPanelFrame.setSize(900,600);
+        controlPanelFrame.setPreferredSize(new Dimension(900,600));
+        controlPanelFrame.setLayout(new BorderLayout());
+        controlPanelFrame.setResizable(false);
 
         mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
@@ -71,6 +74,7 @@ public class ControlPanel extends JFrame {
         contentPanel.add(overviewController);
 
         JScrollPane contentArea = new JScrollPane(contentPanel);
+        contentArea.setPreferredSize(new Dimension(700,300));
 
         mainPanel.add(statsPanel,BorderLayout.NORTH);
         mainPanel.add(contentArea,BorderLayout.CENTER);
@@ -79,11 +83,11 @@ public class ControlPanel extends JFrame {
         logo = new JLabel(new ImageIcon("controlpanellogo.png"));
         sidePanel.add(logo);
 
-        getContentPane().add(mainPanel,BorderLayout.CENTER);
-        getContentPane().add(sidePanel,BorderLayout.EAST);
+        controlPanelFrame.getContentPane().add(mainPanel,BorderLayout.CENTER);
+        controlPanelFrame.getContentPane().add(sidePanel,BorderLayout.EAST);
         //pack();
 
-        setVisible(true);
+        controlPanelFrame.setVisible(true);
     }
 
 
@@ -91,6 +95,7 @@ public class ControlPanel extends JFrame {
         System.out.println("Clicked on a ticket! Trying to open issue " + issue_id);
         contentPanel.removeAll();
         contentPanel.add(new IssueView(issue_id));
+        controlPanelFrame.pack();
     }
 
 }

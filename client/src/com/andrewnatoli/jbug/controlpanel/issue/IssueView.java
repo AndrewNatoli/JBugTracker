@@ -39,6 +39,7 @@ public class IssueView extends JPanel {
         issue = new IssueModel(issue_id);
         author = new UserModel(issue.getUser_id());
         setLayout(new GridLayout(3,1));
+        setPreferredSize(new Dimension(600,300));
 
         issueInfo = new JPanel();
         issueInfo.setBorder(BorderFactory.createTitledBorder("Issue #" + issue.getIssue_id()));
