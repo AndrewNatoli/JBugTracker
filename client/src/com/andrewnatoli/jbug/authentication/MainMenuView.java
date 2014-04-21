@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.andrewnatoli.jbug.controlpanel.ControlPanelController;
 import com.andrewnatoli.jbug.controlpanel.ControlPanelView;
 import com.andrewnatoli.jbug.resources.*;
 import com.andrewnatoli.jbug.Database;
@@ -115,7 +116,7 @@ public class MainMenuView extends JFrame{
                 input_pass.setEnabled(false);
                 btn_cancel.setEnabled(false);
                 if(doLogin(input_user.getText(),input_pass.getText())) {
-                    new ControlPanelView();
+                    new ControlPanelController();
                     setVisible(false);
                 }
                 else {
