@@ -26,6 +26,11 @@ public class ControlPanelView {
 
     protected static JLabel logo;
     protected static ProjectListTable projectsTable;
+    protected static JPanel  projectOptionsPanel;
+    protected static JButton btn_viewIssues;
+    protected static JButton btn_editProject;
+    protected static JButton btn_addProject;
+
 
     protected OverviewView overviewController;
 
@@ -81,20 +86,41 @@ public class ControlPanelView {
         mainPanel.add(statsPanel,BorderLayout.NORTH);
         mainPanel.add(contentArea,BorderLayout.CENTER);
 
-        //Create the side bar
+        /*
+            Create the sidebar
+         */
         sidePanel = new JPanel();
         sidePanel.setLayout(new BorderLayout());
+        //Add the logo
         logo = new JLabel(new ImageIcon("controlpanellogo.png"));
         sidePanel.add(logo,BorderLayout.NORTH);
 
+        //Add the projects table
         projectsTable = new ProjectListTable();
-        JTable table = new JTable(projectsTable);
+        JTable table   = new JTable(projectsTable);
         table.setPreferredScrollableViewportSize(new Dimension(200, 200));
         table.setFillsViewportHeight(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         JScrollPane tableOverflow = new JScrollPane(table);
         sidePanel.add(tableOverflow,BorderLayout.CENTER);
 
+        //Add the options buttons
+        projectOptionsPanel = new JPanel();
+        projectOptionsPanel.setLayout(new GridLayout(3,1));
+        btn_viewIssues = new JButton("View Tickets");
+        btn_viewIssues.setVisible(false);
+        btn_editProject= new JButton("Edit Project");
+        btn_editProject.setVisible(false);
+        btn_addProject = new JButton("Add Project");
+
+        projectOptionsPanel.add(btn_viewIssues);
+        projectOptionsPanel.add(btn_editProject);
+        projectOptionsPanel.add(btn_addProject);
+        sidePanel.add(projectOptionsPanel,BorderLayout.SOUTH);
+
+        /*
+            Add everything to the main JFrame
+         */
         controlPanelFrame.getContentPane().add(mainPanel,BorderLayout.CENTER);
         controlPanelFrame.getContentPane().add(sidePanel,BorderLayout.EAST);
         //pack();

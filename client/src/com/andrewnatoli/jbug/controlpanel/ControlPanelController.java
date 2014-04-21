@@ -33,7 +33,12 @@ public class ControlPanelController extends ControlPanelView {
      */
     private void updateProjectList() {
         model.fetchUserProjects();
-        if (model.projects.size() > 0)
+        if (model.projects.size() > 0) {
+            //Update the table
             projectsTable.fireModelChange(model.projects);
+            //Show the edit/view project buttons on the sidebar
+            btn_editProject.setVisible(true);
+            btn_viewIssues.setVisible(true);
+        }
     }
 }
