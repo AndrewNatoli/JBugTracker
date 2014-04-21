@@ -2,7 +2,6 @@ package com.andrewnatoli.jbug.controlpanel.issue;
 
 import com.andrewnatoli.jbug.controlpanel.user.UserModel;
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 
@@ -20,15 +19,22 @@ public class IssueView extends JPanel {
     /**
      * A panel showing off the issue's information
      */
-    protected JPanel issueInfo;
+    protected JPanel issueDescriptionPanel;
+
+    /**
+     * GUI Elements for the top panel
+     */
+    protected JPanel issueTopRow;
+    protected JPanel issueTitlePanel;
+    protected JPanel issueStatusPanel;
+    protected JLabel issueTitle;
+    protected JLabel issueOpenLabel;
 
     /**
      * GUI elements for for the issueInfo JPanel
      */
-    protected JLabel issueTitle;
     protected JLabel issueDescription;
     protected JLabel issuePostedBy;
-    protected JLabel issueOpenPriority;
 
     /**
      * Constructor of Justice - Requires an issue_id passed to it so we know what issue to look up.
@@ -39,24 +45,49 @@ public class IssueView extends JPanel {
         issue = new IssueModel(issue_id);
         author = new UserModel(issue.getUser_id());
         setLayout(new GridLayout(3,1));
-        setPreferredSize(new Dimension(600,300));
+        setPreferredSize(new Dimension(600, 300));
 
-        issueInfo = new JPanel();
-        issueInfo.setBorder(BorderFactory.createTitledBorder("Issue #" + issue.getIssue_id()));
-        issueInfo.setLayout(new GridLayout(4,1));
+        /*
+            Top row elements
+         */
+        issueTopRow = new JPanel();
+        issueTopRow.setLayout(new BorderLayout());
+        issueTopRow.setPreferredSize(new Dimension(600,75));
 
-        issuePostedBy = new JLabel("Reported by " + author.getName());
-        issueOpenPriority = new JLabel("Status: " + getOpenStatus() + " - Priority: " + issue.getPriority());
+        //Title Panel
+        issueTitlePanel = new JPanel();
+        issueTitlePanel.setBorder(BorderFactory.createTitledBorder("Issue #" + issue.getIssue_id()));
+        issueTitlePanel.setPreferredSize(new Dimension(449,50));
         issueTitle = new JLabel(formatIssueText(issue.getTitle()));
-        issueDescription = new JLabel("\n" + formatIssueText(issue.getDescription()));
+        issueTitlePanel.add(issueTitle);
 
-        issueInfo.add(issueTitle);
-        issueInfo.add(issuePostedBy);
-        issueInfo.add(issueDescription);
+        //Priority & Open/Closed status
+        issueStatusPanel = new JPanel();
+        issueStatusPanel.setBorder(BorderFactory.createTitledBorder("Priority: " + issue.getPriority()));
+        issueStatusPanel.setPreferredSize(new Dimension(145,50));
+        issueOpenLabel = new JLabel(getOpenStatus());
+        issueOpenLabel.setFont(new Font("Sans-Serif", Font.PLAIN, 24));
 
+        issueStatusPanel.add(issueOpenLabel);
+        //Add them to the top row and we're done here.
+        issueTopRow.add(issueTitlePanel,BorderLayout.CENTER);
+        issueTopRow.add(issueStatusPanel,BorderLayout.EAST);
+
+
+
+        issueDescriptionPanel = new JPanel();
+        issueDescriptionPanel.setBorder(BorderFactory.createTitledBorder("Description"));
+        issueDescriptionPanel.setLayout(new BorderLayout());
+
+        issueDescription = new JLabel(formatIssueText(issue.getDescription()) + "\n");
+        issuePostedBy = new JLabel("Reported by " + author.getName());
+
+        issueDescriptionPanel.add(issueDescription,BorderLayout.CENTER);
+        issueDescriptionPanel.add(issuePostedBy,BorderLayout.SOUTH);
 
         //Adds the issueInfo panel to our main, IssueView JPanel
-        add(issueInfo);
+        add(issueTopRow);
+        add(issueDescriptionPanel);
 
         System.out.println("Boom, IssueView is visible. Enjoy it.");
     }
