@@ -1,8 +1,8 @@
 package com.andrewnatoli.jbug.controlpanel.overview.uicomponents;
 
-import com.andrewnatoli.jbug.controlpanel.ControlPanel;
+import com.andrewnatoli.jbug.controlpanel.ControlPanelController;
+import com.andrewnatoli.jbug.controlpanel.ControlPanelView;
 import com.andrewnatoli.jbug.controlpanel.issue.IssueModel;
-import com.andrewnatoli.jbug.controlpanel.overview.OverviewController;
 import com.andrewnatoli.jbug.controlpanel.project.ProjectModel;
 
 import javax.swing.*;
@@ -42,7 +42,7 @@ public class OverviewIssueComponent extends JPanel {
              */
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ControlPanel.showIssue(issue.getIssue_id());
+                ControlPanelController.showIssue(issue.getIssue_id());
             }
         });
 

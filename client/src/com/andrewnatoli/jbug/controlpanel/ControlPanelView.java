@@ -8,29 +8,29 @@ import com.andrewnatoli.jbug.controlpanel.uicomponents.ProjectListTable;
 import javax.swing.*;
 import java.awt.*;
 
-public class ControlPanel {
+public class ControlPanelView {
 
     public  static JFrame controlPanelFrame;
-    private static JPanel mainPanel;
-    private static JPanel sidePanel;
+    protected static JPanel mainPanel;
+    protected static JPanel sidePanel;
 
-    private static JPanel statsPanel;
-    private static JPanel projectCountPanel;
-    private static JPanel openIssueCountPanel;
-    private static JPanel closedIssueCountPanel;
-    private static JPanel contentPanel;
+    protected static JPanel statsPanel;
+    protected static JPanel projectCountPanel;
+    protected static JPanel openIssueCountPanel;
+    protected static JPanel closedIssueCountPanel;
+    protected static JPanel contentPanel;
 
-    private static JLabel projectCountLabel;
-    private static JLabel openIssueCountLabel;
-    private static JLabel closedIssueCountLabel;
+    protected static JLabel projectCountLabel;
+    protected static JLabel openIssueCountLabel;
+    protected static JLabel closedIssueCountLabel;
 
-    private static JLabel logo;
-    private static ProjectListTable projectsTable;
+    protected static JLabel logo;
+    protected static ProjectListTable projectsTable;
 
-    OverviewView overviewController;
+    protected OverviewView overviewController;
 
 
-    public ControlPanel() {
+    public ControlPanelView() {
         controlPanelFrame = new JFrame();
         controlPanelFrame.setTitle("JBugTracker");
         controlPanelFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -101,13 +101,4 @@ public class ControlPanel {
 
         controlPanelFrame.setVisible(true);
     }
-
-
-    public static void showIssue(int issue_id) {
-        System.out.println("Clicked on a ticket! Trying to open issue " + issue_id);
-        contentPanel.removeAll();
-        contentPanel.add(new IssueView(issue_id));
-        controlPanelFrame.pack();
-    }
-
 }
