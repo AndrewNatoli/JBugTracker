@@ -2,6 +2,7 @@ package com.andrewnatoli.jbug.controlpanel;
 
 
 import com.andrewnatoli.jbug.Database;
+import com.andrewnatoli.jbug.authentication.CurrentUser;
 import com.andrewnatoli.jbug.controlpanel.project.ProjectModel;
 
 import java.sql.ResultSet;
@@ -24,7 +25,7 @@ public class ControlPanelModel {
      * DOES NOT AUTOMATICALLY POPULATE A TABLE
      */
     public void fetchUserProjects() {
-        int user_id = 1;
+        int user_id = CurrentUser.getUser_id();
         projects.clear();
         System.out.println("[ControlPanelModel] Getting projects to list in control panel");
         String q = "SELECT project_id FROM jbug_projects WHERE user_id=\""+user_id+"\"";

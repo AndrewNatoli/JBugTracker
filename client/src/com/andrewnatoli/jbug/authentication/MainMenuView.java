@@ -9,6 +9,7 @@ import java.sql.SQLException;
 
 import com.andrewnatoli.jbug.controlpanel.ControlPanelController;
 import com.andrewnatoli.jbug.controlpanel.ControlPanelView;
+import com.andrewnatoli.jbug.controlpanel.user.UserModel;
 import com.andrewnatoli.jbug.resources.*;
 import com.andrewnatoli.jbug.Database;
 
@@ -163,6 +164,7 @@ public class MainMenuView extends JFrame{
            ResultSet rs = Database.stmt.executeQuery(q);
            if(rs.next()) {
                System.out.println("Found user " + rs.getString("email"));
+               CurrentUser.setCurrentUser(new UserModel(rs.getInt("user_id")));
                return true;
            }
            else {

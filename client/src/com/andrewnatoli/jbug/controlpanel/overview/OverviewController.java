@@ -1,5 +1,6 @@
 package com.andrewnatoli.jbug.controlpanel.overview;
 
+import com.andrewnatoli.jbug.authentication.CurrentUser;
 import com.andrewnatoli.jbug.controlpanel.overview.uicomponents.OverviewIssueComponent;
 
 /**
@@ -8,7 +9,7 @@ import com.andrewnatoli.jbug.controlpanel.overview.uicomponents.OverviewIssueCom
 public class OverviewController extends OverviewView{
     protected OverviewModel model;
     public OverviewController() {
-        model = new OverviewModel(1); //TODO: Use real user ID!
+        model = new OverviewModel(CurrentUser.getUser_id());
         addIssuesToView();
     }
 

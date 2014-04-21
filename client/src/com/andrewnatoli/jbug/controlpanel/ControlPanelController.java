@@ -1,6 +1,7 @@
 package com.andrewnatoli.jbug.controlpanel;
 
 
+import com.andrewnatoli.jbug.authentication.CurrentUser;
 import com.andrewnatoli.jbug.controlpanel.issue.IssueView;
 
 public class ControlPanelController extends ControlPanelView {
@@ -14,6 +15,7 @@ public class ControlPanelController extends ControlPanelView {
         System.out.println("[ControlPanelController] Welcome to the ControlPanelController! Let's have a great time :)");
         model = new ControlPanelModel();
         updateProjectList();
+        controlPanelFrame.setTitle("JBugTracker - " + CurrentUser.getEmail());
     }
 
     /**

@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
+import com.andrewnatoli.jbug.authentication.CurrentUser;
 import com.andrewnatoli.jbug.controlpanel.issue.IssueModel;
 
 public class OverviewModel {
@@ -15,14 +17,13 @@ public class OverviewModel {
     public ArrayList<IssueModel> issues = new ArrayList<IssueModel>();
 
     public OverviewModel(int user_id) {
-        refreshOverview(user_id);
+        refreshOverview();
     }
 
     /**
      * refreshOverview - Builds an ArrayList of issues belonging to our projets
-     * @param user_id
      */
-    public void refreshOverview(int user_id) {
+    public void refreshOverview() {
         //Wipe out the ArrayList before we fill it
         if(issues.size() > 0)
             issues.clear();
@@ -30,7 +31,7 @@ public class OverviewModel {
         try {
             //Get our projects
             System.out.println("Loading overview data...");
-            ResultSet rs = Database.stmt.executeQuery("SELECT project_id, title FROM jbug_projects WHERE user_id=\""+user_id+"\"");
+            ResultSet rs = Database.stmt.executeQuery("SELECT project_id, title FROM jbug_projects WHERE user_id=\""+ CurrentUser.getUser_id()+"\"");
             ArrayList<Integer> project_ids = new ArrayList<Integer>();
             while (rs.next()) {
                 System.out.println("[OverviewModel] found project: " + rs.getString("title"));
