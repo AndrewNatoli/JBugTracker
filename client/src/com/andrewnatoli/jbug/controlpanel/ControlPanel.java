@@ -3,6 +3,7 @@ package com.andrewnatoli.jbug.controlpanel;
 import com.andrewnatoli.jbug.controlpanel.issue.IssueView;
 import com.andrewnatoli.jbug.controlpanel.overview.OverviewController;
 import com.andrewnatoli.jbug.controlpanel.overview.OverviewView;
+import com.andrewnatoli.jbug.controlpanel.uicomponents.ProjectListTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,6 +25,7 @@ public class ControlPanel {
     private static JLabel closedIssueCountLabel;
 
     private static JLabel logo;
+    private static ProjectListTable projectsTable;
 
     OverviewView overviewController;
 
@@ -33,7 +35,7 @@ public class ControlPanel {
         controlPanelFrame.setTitle("JBugTracker");
         controlPanelFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         controlPanelFrame.setSize(900,600);
-        controlPanelFrame.setPreferredSize(new Dimension(900,600));
+        controlPanelFrame.setPreferredSize(new Dimension(900, 600));
         controlPanelFrame.setLayout(new BorderLayout());
         controlPanelFrame.setResizable(false);
 
@@ -74,14 +76,24 @@ public class ControlPanel {
         contentPanel.add(overviewController);
 
         JScrollPane contentArea = new JScrollPane(contentPanel);
-        contentArea.setPreferredSize(new Dimension(700,300));
+        contentArea.setPreferredSize(new Dimension(700, 300));
 
         mainPanel.add(statsPanel,BorderLayout.NORTH);
         mainPanel.add(contentArea,BorderLayout.CENTER);
 
+        //Create the side bar
         sidePanel = new JPanel();
+        sidePanel.setLayout(new BorderLayout());
         logo = new JLabel(new ImageIcon("controlpanellogo.png"));
-        sidePanel.add(logo);
+        sidePanel.add(logo,BorderLayout.NORTH);
+
+        projectsTable = new ProjectListTable();
+        JTable table = new JTable(projectsTable);
+        table.setPreferredScrollableViewportSize(new Dimension(200, 200));
+        table.setFillsViewportHeight(true);
+        table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        JScrollPane tableOverflow = new JScrollPane(table);
+        sidePanel.add(tableOverflow,BorderLayout.CENTER);
 
         controlPanelFrame.getContentPane().add(mainPanel,BorderLayout.CENTER);
         controlPanelFrame.getContentPane().add(sidePanel,BorderLayout.EAST);
