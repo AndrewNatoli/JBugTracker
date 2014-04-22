@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class ControlPanelView {
 
-    public  static JFrame controlPanelFrame;
+    public    static JFrame controlPanelFrame;
     protected static JPanel mainPanel;
     protected static JPanel sidePanel;
 
@@ -122,6 +122,12 @@ public class ControlPanelView {
         btn_editProject= new JButton("Edit Project");
         btn_editProject.setVisible(false);
         btn_addProject = new JButton("Add Project");
+        btn_addProject.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ControlPanelController.showProject();
+            }
+        });
 
         projectOptionsPanel.add(btn_viewIssues);
         projectOptionsPanel.add(btn_editProject);

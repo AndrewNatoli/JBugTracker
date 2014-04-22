@@ -42,7 +42,7 @@ public class ProjectModel {
     public ProjectModel() {
         project_id = -1;
         user_id = CurrentUser.getUser_id();
-        date_created = "";
+        date_created = "2014-04-22 11:00:00";
         title = "";
     }
 
