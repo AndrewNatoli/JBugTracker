@@ -3,6 +3,7 @@ package com.andrewnatoli.jbug.controlpanel;
 
 import com.andrewnatoli.jbug.authentication.CurrentUser;
 import com.andrewnatoli.jbug.controlpanel.issue.IssueView;
+import com.andrewnatoli.jbug.controlpanel.overview.OverviewController;
 
 public class ControlPanelController extends ControlPanelView {
     private ControlPanelModel model;
@@ -26,6 +27,16 @@ public class ControlPanelController extends ControlPanelView {
         System.out.println("Clicked on a ticket! Trying to open issue " + issue_id);
         contentPanel.removeAll();
         contentPanel.add(new IssueView(issue_id));
+        controlPanelFrame.pack();
+    }
+
+    /**
+     * showOverview - Hides the current view and restores the overview
+     */
+    public static void showOverview() {
+        System.out.println("[OverviewController] Showing overview!");
+        contentPanel.removeAll();
+        contentPanel.add(new OverviewController());
         controlPanelFrame.pack();
     }
 

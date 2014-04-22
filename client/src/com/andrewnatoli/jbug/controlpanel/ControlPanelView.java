@@ -7,6 +7,8 @@ import com.andrewnatoli.jbug.controlpanel.uicomponents.ProjectListTable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class ControlPanelView {
 
@@ -107,7 +109,15 @@ public class ControlPanelView {
         //Add the options buttons
         projectOptionsPanel = new JPanel();
         projectOptionsPanel.setLayout(new GridLayout(3,1));
+
         btn_viewIssues = new JButton("View Tickets");
+        btn_viewIssues.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ControlPanelController.showOverview();
+            }
+        });
+
         btn_viewIssues.setVisible(false);
         btn_editProject= new JButton("Edit Project");
         btn_editProject.setVisible(false);
