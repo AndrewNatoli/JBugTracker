@@ -4,6 +4,7 @@ import com.andrewnatoli.jbug.Database;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -81,5 +82,41 @@ public class IssueModel {
 
     public int getPriority() {
         return priority;
+    }
+
+    /**
+     * update()
+     * Saves the model into the database
+     */
+    public void update() {
+        String q;
+        //Create a new issue record in the database
+        if(project_id == -1) {
+            q = "INSERT INTO `jbug_issues` ( `title`, `description`, `user_id`, `project_id`, `date_created`, `open`, `priority`) values ( '"+title+"', '"+description+"', '"+user_id+"', '"+project_id+"', '"+date_created+"', '"+open+"', '"+priority+"')";
+            try {
+                Statement insertStatement = Database.conn.createStatement();
+                insertStatement.executeUpdate(q);
+                insertStatement.close();
+            }
+            catch(SQLException e) {
+                e.printStackTrace();
+                System.err.println("[IssueModel] Could not insert new issue into database");
+                System.err.println(e.getMessage());
+            }
+        }
+        //Update an existing record
+        else {
+            q = "UPDATE `jbug_issues` SET `title`='"+title+"', `description`='"+description+"' WHERE `issue_id`='"+issue_id+"'";
+            try {
+                Statement updateStatement = Database.conn.createStatement();
+                updateStatement.executeUpdate(q);
+                updateStatement.close();
+            }
+            catch(SQLException e) {
+                e.printStackTrace();
+                System.err.println("[ProjectModel] Could not update project " + project_id);
+                System.err.println(e.getMessage());
+            }
+        }
     }
 }
