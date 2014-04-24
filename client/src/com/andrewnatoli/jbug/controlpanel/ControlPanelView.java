@@ -4,6 +4,7 @@ import com.andrewnatoli.jbug.controlpanel.issue.IssueView;
 import com.andrewnatoli.jbug.controlpanel.overview.OverviewController;
 import com.andrewnatoli.jbug.controlpanel.overview.OverviewView;
 import com.andrewnatoli.jbug.controlpanel.uicomponents.ProjectListTable;
+import com.sun.deploy.panel.ControlPanel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -121,6 +122,13 @@ public class ControlPanelView {
 
         btn_viewIssues.setVisible(false);
         btn_editProject= new JButton("Edit Project");
+        btn_editProject.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ControlPanelController.showProject(table.getSelectedRow());
+            }
+        });
+
         btn_editProject.setVisible(false);
         btn_addProject = new JButton("Add Project");
         btn_addProject.addActionListener(new ActionListener() {

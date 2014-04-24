@@ -24,9 +24,10 @@ public class ProjectView extends JPanel{
      * @param id
      */
     public ProjectView(int id) {
-        project = new ProjectModel(id);
-        frameTitle = "Edit Project";
-        btnText = "Save Changes";
+        System.out.println("[ProjectView] Loading project " + id + "...");
+        frameTitle  = "Edit Project";
+        btnText     = "Save Changes";
+        project     = new ProjectModel(id);
         buildLayout();
     }
 
@@ -34,9 +35,9 @@ public class ProjectView extends JPanel{
      * Constructor to create a new project
      */
     public ProjectView() {
-        frameTitle = "Add Project";
-        btnText = "Create Project";
-        project = new ProjectModel();
+        frameTitle  = "Add Project";
+        btnText     = "Create Project";
+        project     = new ProjectModel();
         buildLayout();
     }
 
@@ -44,7 +45,8 @@ public class ProjectView extends JPanel{
      * buildLayout()
      */
     private void buildLayout() {
-        setPreferredSize(new Dimension(510,82));
+        System.out.println("[ProjectView] Building Interface");
+        setPreferredSize(new Dimension(510, 82));
         setMaximumSize(new Dimension(510,82));
         setBorder(BorderFactory.createTitledBorder(frameTitle));
         setLayout(new BorderLayout());
@@ -52,7 +54,14 @@ public class ProjectView extends JPanel{
         projectForm.setLayout(new GridLayout(1,2));
 
         label_projectName = new JLabel("Project Name");
-        input_projectName = new JTextField(30);
+
+        //Populate a JTextArea with the project's title
+        if(project.getTitle().equals("") || project.getTitle() == null)
+            input_projectName = new JTextField(30);
+        else {
+            input_projectName = new JTextField(project.getTitle(),30);
+            System.out.println("[ProjectView] Got project name "+project.getTitle());
+        }
 
         projectForm.add(label_projectName);
         projectForm.add(input_projectName);

@@ -6,6 +6,8 @@ import com.andrewnatoli.jbug.controlpanel.issue.IssueView;
 import com.andrewnatoli.jbug.controlpanel.overview.OverviewController;
 import com.andrewnatoli.jbug.controlpanel.project.ProjectView;
 
+import javax.swing.*;
+
 public class ControlPanelController extends ControlPanelView {
     private static ControlPanelModel model;
 
@@ -51,7 +53,7 @@ public class ControlPanelController extends ControlPanelView {
         contentPanel.removeAll();
         contentPanel.add(new ProjectView());
         controlPanelFrame.pack();
-        System.out.println("There it is!");
+        System.out.println("[ControlPanelController] There it is!");
     }
 
     /**
@@ -60,11 +62,18 @@ public class ControlPanelController extends ControlPanelView {
      * @param project_id ID of the project to edit
      */
     public static void showProject(int project_id) {
-        System.out.println("[ControlPanelController] Showing project editor");
-        controlPanelFrame.removeAll();
-        controlPanelFrame.add(new ProjectView(project_id));
-        controlPanelFrame.pack();
-        System.out.println("There it is!");
+        if(project_id != -1) {
+            System.out.println("[ControlPanelController] Showing project editor");
+            System.out.println("[ControlPanelController->showProject] Checking row " + project_id);
+            contentPanel.removeAll();
+            project_id = model.projects.get(project_id).getProject_id(); //Get the project ID from the row we selected
+            System.out.println("[ControlPanelController->showProject] Found Project " + project_id);
+            contentPanel.add(new ProjectView(project_id));
+            controlPanelFrame.pack();
+            System.out.println("[ControlPanelController] There it is!");
+        }
+        else
+            JOptionPane.showMessageDialog(null,"Select a project to edit.");
     }
 
     /**
