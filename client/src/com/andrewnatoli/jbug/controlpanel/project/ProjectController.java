@@ -24,8 +24,8 @@ public class ProjectController {
         else {
             project.setTitle(title);
             project.update();
+            ControlPanelController.updateProjectList(); //Refresh the project list
             ControlPanelController.showOverview(); //Go back to showing the overview
-            return;
         }
     }
 }

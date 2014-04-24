@@ -28,6 +28,7 @@ public class ControlPanelView {
 
     protected static JLabel logo;
     protected static ProjectListTable projectsTable;
+    protected static JTable table;
     protected static JPanel  projectOptionsPanel;
     protected static JButton btn_viewIssues;
     protected static JButton btn_editProject;
@@ -99,7 +100,7 @@ public class ControlPanelView {
 
         //Add the projects table
         projectsTable = new ProjectListTable();
-        JTable table   = new JTable(projectsTable);
+        table   = new JTable(projectsTable);
         table.setPreferredScrollableViewportSize(new Dimension(200, 200));
         table.setFillsViewportHeight(true);
         table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

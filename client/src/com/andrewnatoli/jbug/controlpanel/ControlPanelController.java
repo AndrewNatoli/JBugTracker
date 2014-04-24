@@ -7,7 +7,7 @@ import com.andrewnatoli.jbug.controlpanel.overview.OverviewController;
 import com.andrewnatoli.jbug.controlpanel.project.ProjectView;
 
 public class ControlPanelController extends ControlPanelView {
-    private ControlPanelModel model;
+    private static ControlPanelModel model;
 
     /**
      * Super constructor of justice!
@@ -69,9 +69,9 @@ public class ControlPanelController extends ControlPanelView {
 
     /**
      * updateProjectList
-     * Reloads the projects list into the model and updates the projectsTable if neccessarry.
+     * Reloads the projects list into the model and updates the projectsTable if necessary.
      */
-    private void updateProjectList() {
+    public static void updateProjectList() {
         model.fetchUserProjects();
         if (model.projects.size() > 0) {
             //Update the table
