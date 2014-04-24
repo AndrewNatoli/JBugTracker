@@ -119,4 +119,26 @@ public class IssueModel {
             }
         }
     }
+
+    /**
+     * delete() - Deletes the issue from the database
+     * @return boolean Whether or not the query succeeded.
+     */
+    public boolean delete() {
+        String q;
+        //Delete our project from the database
+        q= "DELETE FROM `jbug_issues` WHERE `issue_id`='"+issue_id+"'";
+        try {
+            Statement deleteStatement = Database.conn.createStatement();
+            deleteStatement.executeUpdate(q);
+            deleteStatement.close();
+            return true;
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            System.err.println("[IssueModel] Could not delete issue " + issue_id);
+            System.out.println(e.getMessage());
+            return false;
+        }
+    }
 }

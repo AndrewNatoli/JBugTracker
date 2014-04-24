@@ -1,11 +1,9 @@
 package com.andrewnatoli.jbug.controlpanel;
 
-
 import com.andrewnatoli.jbug.authentication.CurrentUser;
 import com.andrewnatoli.jbug.controlpanel.issue.IssueView;
 import com.andrewnatoli.jbug.controlpanel.overview.OverviewController;
 import com.andrewnatoli.jbug.controlpanel.project.ProjectView;
-
 import javax.swing.*;
 
 public class ControlPanelController extends ControlPanelView {
