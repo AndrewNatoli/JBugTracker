@@ -114,7 +114,7 @@ public class IssueModel {
             }
             catch(SQLException e) {
                 e.printStackTrace();
-                System.err.println("[ProjectModel] Could not update project " + project_id);
+                System.err.println("[IssueModel] Could not update issue " + project_id);
                 System.err.println(e.getMessage());
             }
         }

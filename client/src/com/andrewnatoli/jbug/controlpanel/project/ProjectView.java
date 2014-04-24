@@ -1,5 +1,7 @@
 package com.andrewnatoli.jbug.controlpanel.project;
 
+import com.andrewnatoli.jbug.controlpanel.ControlPanelController;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -13,11 +15,13 @@ public class ProjectView extends JPanel{
     protected String frameTitle;
     protected String btnText;
 
-    protected JLabel     label_projectName;
-    protected JTextField input_projectName;
+    protected JLabel        label_projectName;
+    protected JTextField    input_projectName;
 
-    protected JButton   btn_submit;
-    protected ProjectModel project;
+    protected JPanel        buttons_panel;
+    protected JButton       btn_delete;
+    protected JButton       btn_submit;
+    protected ProjectModel  project;
 
     /**
      * Constructor to edit an existing project
@@ -25,7 +29,7 @@ public class ProjectView extends JPanel{
      */
     public ProjectView(int id) {
         System.out.println("[ProjectView] Loading project " + id + "...");
-        frameTitle  = "Edit Project";
+        frameTitle  = "Manage Project";
         btnText     = "Save Changes";
         project     = new ProjectModel(id);
         buildLayout();
@@ -46,8 +50,8 @@ public class ProjectView extends JPanel{
      */
     private void buildLayout() {
         System.out.println("[ProjectView] Building Interface");
-        setPreferredSize(new Dimension(510, 82));
-        setMaximumSize(new Dimension(510,82));
+        setPreferredSize(new Dimension(510, 125));
+        setMaximumSize(new Dimension(510,125));
         setBorder(BorderFactory.createTitledBorder(frameTitle));
         setLayout(new BorderLayout());
         projectForm = new JPanel();
@@ -67,6 +71,9 @@ public class ProjectView extends JPanel{
         projectForm.add(input_projectName);
 
         //Submit button calls the controller to do validation and the update
+        buttons_panel = new JPanel();
+        buttons_panel.setLayout(new GridLayout(2,1));
+
         btn_submit = new JButton(btnText);
         btn_submit.addActionListener(new ActionListener() {
             @Override
@@ -75,10 +82,25 @@ public class ProjectView extends JPanel{
             }
         });
 
+        //Delete button
+        btn_delete = new JButton("Remove Project");
+        if(project.getProject_id() == -1) {
+            btn_delete.setVisible(false);
+        }
+        btn_delete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ProjectController.doDelete(project);
+            }
+        });
 
+        //Add the buttons to our button panel
+        buttons_panel.add(btn_submit);
+        buttons_panel.add(btn_delete);
 
+        //Add everything to the view
         add(projectForm, BorderLayout.CENTER);
-        add(btn_submit,BorderLayout.SOUTH);
+        add(buttons_panel,BorderLayout.SOUTH);
         System.out.println("[ProjectView] Built interface");
     }
 
