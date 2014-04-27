@@ -90,7 +90,10 @@ public class ProjectView extends JPanel{
         btn_delete.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                ProjectController.doDelete(project);
+                int confirm = JOptionPane.showOptionDialog(null, "Are you sure you want to delete this project?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+                if (confirm == 0) {
+                    ProjectController.doDelete(project);
+                }
             }
         });
 
