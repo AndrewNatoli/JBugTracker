@@ -56,21 +56,21 @@ public class ControlPanelView {
 
         projectCountPanel = new JPanel();
         projectCountPanel.setBorder(BorderFactory.createTitledBorder("Projects you Manage"));
-        projectCountLabel = new JLabel("3");
+        projectCountLabel = new JLabel("0");
         projectCountLabel.setFont(new Font("Sans-Serif", Font.PLAIN, 26));
         projectCountLabel.setForeground(Color.BLACK);
         projectCountPanel.add(projectCountLabel);
 
         openIssueCountPanel = new JPanel();
         openIssueCountPanel.setBorder(BorderFactory.createTitledBorder("Open Issues"));
-        openIssueCountLabel = new JLabel("142");
+        openIssueCountLabel = new JLabel("0");
         openIssueCountLabel.setFont(new Font("Sans-Serif", Font.PLAIN, 26));
         openIssueCountLabel.setForeground(Color.RED);
         openIssueCountPanel.add(openIssueCountLabel);
 
         closedIssueCountPanel = new JPanel();
         closedIssueCountPanel.setBorder(BorderFactory.createTitledBorder("Issues Resolved"));
-        closedIssueCountLabel = new JLabel("6073");
+        closedIssueCountLabel = new JLabel("0");
         closedIssueCountLabel.setFont(new Font("Sans-Serif", Font.PLAIN, 26));
         closedIssueCountLabel.setForeground(Color.GREEN);
         closedIssueCountPanel.add(closedIssueCountLabel);

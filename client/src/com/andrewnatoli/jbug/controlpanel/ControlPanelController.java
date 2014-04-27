@@ -86,6 +86,19 @@ public class ControlPanelController extends ControlPanelView {
             //Show the edit/view project buttons on the sidebar
             btn_editProject.setVisible(true);
             btn_viewIssues.setVisible(true);
+            updateHeaderCounts();
         }
     }
+
+    /**
+     * updateHeaderCounts
+     * Update the project / issue counts at the top of the window
+     * This should be called by updateProjectList
+     */
+    public static void updateHeaderCounts() {
+        projectCountLabel.setText(Integer.toString(model.getUserProjectCount(CurrentUser.getUser_id())));
+        openIssueCountLabel.setText(Integer.toString(model.getOpenIssueCount(CurrentUser.getUser_id())));
+        closedIssueCountLabel.setText(Integer.toString(model.getResolvedIssueCount(CurrentUser.getUser_id())));
+    }
+
 }

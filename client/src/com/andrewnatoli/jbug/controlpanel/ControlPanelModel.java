@@ -45,4 +45,93 @@ public class ControlPanelModel {
         }
         System.out.println("[ControlPanelModel] Got 'em! Have a nice day.");
     }
+
+    /**
+     * getUserProjectCount - Gets the number of projects the user is managing with JBugTracker
+     * @param user_id The user's ID we want to look up
+     * @return int Number of projects
+     */
+    public int getUserProjectCount(int user_id) {
+        try {
+            int projectCount = 0;
+            String q = "SELECT COUNT(*) AS count FROM jbug_projects WHERE user_id=\""+user_id+"\"";
+            Statement getProjectCount = Database.conn.createStatement();
+            ResultSet result = getProjectCount.executeQuery(q);
+            result.next();
+            projectCount = result.getInt(1);
+            getProjectCount.close();
+            result.close();
+            return projectCount;
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            System.err.println("[ControlPanelModel->getUserProjectCount] " + e.getMessage());
+        }
+        return 0;
+    }
+
+    /**
+     * getOpenIssueCount - Gets the number of open issues for projects the user manages
+     * @param user_id
+     * @return int Number of issues where open =1
+     */
+    public int getOpenIssueCount(int user_id) {
+        int openIssues = 0;
+        try {
+            //Find the project IDs
+            String q = "SELECT project_id FROM jbug_projects WHERE user_id=\""+user_id+"\"";
+            Statement getProjects = Database.conn.createStatement();
+            ResultSet projects = getProjects.executeQuery(q);
+            while(projects.next()) {
+                //Get the issue count for each project and add it to our running total
+                int project_id = projects.getInt("project_id");
+                String q2 = "SELECT COUNT(*) AS count FROM jbug_issues WHERE open=\"1\" AND project_id=\""+project_id+"\"";
+                System.out.println(q2);
+                Statement getProjectIssues = Database.conn.createStatement();
+                ResultSet issues = getProjectIssues.executeQuery(q2);
+                issues.next();
+                int countForThisProject = issues.getInt("count");
+                System.out.println("[ControlPanelModel->getOpenIssueCount] Found " + countForThisProject + " issues for project " + project_id);
+                openIssues += countForThisProject;
+            }
+            return openIssues;
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            System.err.println("[ControlPanelModel->getOpenIssueCount] " + e.getMessage());
+        }
+        return 0;
+    }
+
+    /**
+     * getResolvedIssueCount - Get the number of resolved issues for the user
+     * @param user_id
+     * @return int The number of issues assigned to the user's projects where open=0
+     */
+    public int getResolvedIssueCount(int user_id) {
+        int openIssues = 0;
+        try {
+            //Find the project IDs
+            String q = "SELECT project_id FROM jbug_projects WHERE user_id=\""+user_id+"\"";
+            Statement getProjects = Database.conn.createStatement();
+            ResultSet projects = getProjects.executeQuery(q);
+            while(projects.next()) {
+                //Get the issue count for each project and add it to our running total
+                int project_id = projects.getInt("project_id");
+                String q2 = "SELECT COUNT(*) AS count FROM jbug_issues WHERE open=\"0\" AND project_id=\""+project_id+"\"";
+                System.out.println(q2);
+                Statement getProjectIssues = Database.conn.createStatement();
+                ResultSet issues = getProjectIssues.executeQuery(q2);
+                issues.next();
+                int countForThisProject = issues.getInt("count");
+                openIssues += countForThisProject;
+            }
+            return openIssues;
+        }
+        catch(SQLException e) {
+            e.printStackTrace();
+            System.err.println("[ControlPanelModel->getResolvedIssueCount] " + e.getMessage());
+        }
+        return 0;
+    }
 }

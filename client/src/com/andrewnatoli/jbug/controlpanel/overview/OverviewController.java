@@ -3,9 +3,6 @@ package com.andrewnatoli.jbug.controlpanel.overview;
 import com.andrewnatoli.jbug.authentication.CurrentUser;
 import com.andrewnatoli.jbug.controlpanel.overview.uicomponents.OverviewIssueComponent;
 
-/**
- * Created by andrew on 4/20/14.
- */
 public class OverviewController extends OverviewView{
     protected OverviewModel model;
     public OverviewController() {
