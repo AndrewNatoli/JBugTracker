@@ -55,6 +55,11 @@ public class IssueView extends JPanel {
     protected JButton btn_saveChanges;
 
     /**
+     * Allow the description editor to be scrollable
+     */
+    JScrollPane issueDescriptionScroller;
+
+    /**
      * Constructor of Justice - Requires an issue_id passed to it so we know what issue to look up.
      * @param issue_id
      */
@@ -82,41 +87,46 @@ public class IssueView extends JPanel {
         issueTitle.setText(issue.getTitle());
         issueTitlePanel.add(issueTitle);
 
-        //Priority & Open/Closed status
+        //Status LABEL
         issueStatusPanel = new JPanel();
         issueStatusPanel.setBorder(BorderFactory.createTitledBorder("Priority: " + issue.getPriority()));
         issueStatusPanel.setPreferredSize(new Dimension(145, 50));
         issueOpenLabel = new JLabel(getOpenStatus());
         issueOpenLabel.setFont(new Font("Sans-Serif", Font.PLAIN, 24));
 
+        //Status EDITOR
         issueStatus = new JComboBox(issueStatusStrings);
         issueStatus.setOpaque(false);
+        issueStatus.setVisible(false);
         issueStatus.setSelectedIndex(issue.getOpen());
         issueStatus.setEditable(false);
 
-
         issueStatusPanel.add(issueOpenLabel); //Switch it out for issueStatus combobox when we edit the issue
+        issueStatusPanel.add(issueStatus);
         //Add them to the top row and we're done here.
         issueTopRow.add(issueTitlePanel,BorderLayout.CENTER);
         issueTopRow.add(issueStatusPanel,BorderLayout.EAST);
 
 
-
+        //Issue Description
         issueDescriptionPanel = new JPanel();
         issueDescriptionPanel.setBorder(BorderFactory.createTitledBorder("Description"));
         issueDescriptionPanel.setLayout(new BorderLayout());
 
-        issueDescription = new JTextArea(30,10);
+        issueDescription = new JTextArea();
         issueDescription.setEditable(false);
         issueDescription.setOpaque(false);
         issueDescription.setLineWrap(true);
         issueDescription.setWrapStyleWord(true);
         issueDescription.setLineWrap(true);
+        issueDescription.setAutoscrolls(true);
         issueDescription.setText(issue.getDescription());
+        issueDescriptionScroller = new JScrollPane(issueDescription);
+        issueDescriptionScroller.setOpaque(false);
 
         issuePostedBy = new JLabel("Reported by " + author.getName());
 
-        issueDescriptionPanel.add(issueDescription,BorderLayout.CENTER);
+        issueDescriptionPanel.add(issueDescriptionScroller,BorderLayout.CENTER);
         issueDescriptionPanel.add(issuePostedBy,BorderLayout.SOUTH);
 
         //Adds the issueInfo panel to our main, IssueView JPanel
@@ -133,6 +143,16 @@ public class IssueView extends JPanel {
                     System.out.println("Clicked button to revise ticket");
                     remove(btn_reviseTicket);
                     add(btn_saveChanges);
+
+                    issueDescriptionScroller.setOpaque(true);
+                    issueDescription.setEditable(true);
+                    issueTitle.setOpaque(true);
+                    issueTitle.setEditable(true);
+
+                    issueStatus.setVisible(true);
+                    issueStatus.setEditable(true);
+                    issueOpenLabel.setVisible(false);
+
                     ControlPanelView.controlPanelFrame.pack();
                 }
             });
