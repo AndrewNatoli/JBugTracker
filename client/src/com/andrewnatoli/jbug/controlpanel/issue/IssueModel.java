@@ -48,40 +48,100 @@ public class IssueModel {
         System.out.println("Got the IssueModel. Enjoy it.");
     }
 
+    /**
+     * getIssue_id()
+     * @return int issue_id
+     */
     public int getIssue_id() {
         return issue_id;
     }
 
+    /**
+     * getProject_id()
+     * @return int project_id the issue belongs to
+     */
     public int getProject_id() {
         return project_id;
     }
 
+    /**
+     * getUser_id()
+     * @return int The author ID
+     */
     public int getUser_id() {
         return user_id;
     }
 
+    /**
+     * getTitle()
+     * @return String the title of the issue
+     */
     public String getTitle() {
         return title;
     }
 
+    /**
+     * getDescription()
+     * @return String the issue description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * getDate_created()
+     * @return String the date the issue was posted
+     */
     public String getDate_created() {
         return date_created;
     }
 
+    /**
+     * getDate_closed()
+     * @return String the date the issue was marked as closed
+     */
     public String getDate_closed() {
         return date_closed;
     }
 
+    /**
+     * getOpen()
+     * @return int (0: Closed, 1: Open)
+     */
     public int getOpen() {
         return open;
     }
 
+    /**
+     * getPriority()
+     * @return int 0 (lowest) - 9 (highest)
+     */
     public int getPriority() {
         return priority;
+    }
+
+    /**
+     * setTitle
+     * @param title Updates the issue's title
+     */
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    /**
+     * setDescription()
+     * @param description Updates the issue's description
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * setOpen
+     * @param open (0: Closed, 1: Open)
+     */
+    public void setOpen(int open) {
+        this.open = open;
     }
 
     /**

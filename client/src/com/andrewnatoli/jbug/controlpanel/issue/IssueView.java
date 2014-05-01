@@ -133,10 +133,15 @@ public class IssueView extends JPanel {
         add(issueTopRow);
         add(issueDescriptionPanel);
 
-        //The "Revise Ticket" button... if the issue belongs to them
+        /**
+         * "Revise Ticket" button & "Save Changes" button
+         * Displays if the issue was posted by the user that is currently viewing it
+         */
         if(issue.getUser_id() == CurrentUser.getUser_id()) {
             btn_reviseTicket = new JButton("Revise Ticket");
             btn_saveChanges  = new JButton("Save Changes");
+
+            //"Revise ticket" handler
             btn_reviseTicket.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
@@ -156,6 +161,38 @@ public class IssueView extends JPanel {
                     ControlPanelView.controlPanelFrame.pack();
                 }
             });
+
+            //"Save Changes" handler
+            btn_saveChanges.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent actionEvent) {
+                    System.out.println("[IssueView] Clicked save changes button.");
+                    System.out.println("[IssueView] Updating GUI Components");
+                    remove(btn_saveChanges);
+                    add(btn_reviseTicket);
+
+                    issueDescriptionScroller.setOpaque(false);
+                    issueDescription.setEditable(false);
+                    issueTitle.setEditable(false);
+                    issueTitle.setOpaque(false);
+                    issueStatus.setVisible(false);
+                    issueStatus.setEditable(false);
+                    issueOpenLabel.setVisible(true);
+
+                    System.out.println("[IssueView] Applying changes to model");
+                    issue.setTitle(issueTitle.getText().trim());
+                    issue.setDescription(issueDescription.getText().trim());
+                    issue.setOpen(issueStatus.getSelectedIndex());
+
+                    System.out.println("[IssueView] Saving changes to database");
+                    issue.update();
+
+                    ControlPanelView.controlPanelFrame.pack();
+                }
+            });
+
+
+            //Add the reviseTicket button to the GUI
             add(btn_reviseTicket);
         }
 
