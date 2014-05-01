@@ -1,6 +1,7 @@
 package com.andrewnatoli.jbug.controlpanel.issue;
 
 import com.andrewnatoli.jbug.Database;
+import com.andrewnatoli.jbug.authentication.CurrentUser;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -30,7 +31,7 @@ public class IssueModel {
             ResultSet rs = Database.stmt.executeQuery("SELECT * FROM jbug_issues WHERE issue_id=\""+id+"\";");
             while(rs.next()) {
                 issue_id    = rs.getInt("issue_id");
-                project_id  = rs.getInt("project_id");
+                project_id = rs.getInt("project_id");
                 user_id     = rs.getInt("user_id");
                 title       = rs.getString("title");
                 description = rs.getString("description");
@@ -46,6 +47,22 @@ public class IssueModel {
             System.err.println("Error loading IssueModel: " + e.getMessage());
         }
         System.out.println("Got the IssueModel. Enjoy it.");
+    }
+
+    /**
+     * Blank constructor to create a new issue
+     */
+    public IssueModel() {
+        System.out.println("Creating a blank IssueModel");
+        issue_id    = -1;
+        user_id     = CurrentUser.getUser_id();
+        title       = "";
+        description = "";
+        date_created= "00-00-0000";
+        date_closed = "00-00-0000";
+        open        = 1;
+        priority    = 0;
+        System.out.print("Anddddd there's your new Issue.");
     }
 
     /**
@@ -151,8 +168,8 @@ public class IssueModel {
     public void update() {
         String q;
         //Create a new issue record in the database
-        if(project_id == -1) {
-            q = "INSERT INTO `jbug_issues` ( `title`, `description`, `user_id`, `project_id`, `date_created`, `open`, `priority`) values ( '"+title+"', '"+description+"', '"+user_id+"', '"+project_id+"', '"+date_created+"', '"+open+"', '"+priority+"')";
+        if(issue_id == -1) {
+            q = "INSERT INTO `jbug_issues` ( `title`, `description`, `user_id`, `project_id`, `date_created`, `open`, `priority`) values ( '"+title+"', '"+description+"', '"+user_id+"', '"+ project_id +"', '"+date_created+"', '"+open+"', '"+priority+"')";
             try {
                 Statement insertStatement = Database.conn.createStatement();
                 insertStatement.executeUpdate(q);

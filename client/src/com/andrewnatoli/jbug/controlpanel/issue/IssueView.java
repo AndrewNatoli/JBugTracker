@@ -9,11 +9,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 
-public class IssueView extends JPanel {
+public abstract class IssueView extends JPanel {
     /**
      * issue - Houses data for the issue
      */
-    protected IssueModel  issue;
+    protected static IssueModel  issue;
 
     /**
      * author - Houses data for the issue's author
@@ -60,12 +60,21 @@ public class IssueView extends JPanel {
     JScrollPane issueDescriptionScroller;
 
     /**
-     * Constructor of Justice - Requires an issue_id passed to it so we know what issue to look up.
-     * @param issue_id
+     * Defined in the controller to update the model
+     * TODO: Make the other views abstract like this (2014-May-1)
      */
-    public IssueView(int issue_id) {
+    abstract void doUpdate();
+
+    /**
+     * Assemble the GUI
+     */
+    protected void buildGUI(int issue_id) {
         System.out.println("Preparing issue view");
-        issue = new IssueModel(issue_id);
+        if(issue_id != -1)
+            issue = new IssueModel(issue_id);
+        else
+            issue = new IssueModel();
+
         author = new UserModel(issue.getUser_id());
         setLayout(new GridLayout(3,1));
         setPreferredSize(new Dimension(600, 300));
@@ -178,14 +187,9 @@ public class IssueView extends JPanel {
                     issueStatus.setVisible(false);
                     issueStatus.setEditable(false);
                     issueOpenLabel.setVisible(true);
+                    issueOpenLabel.setText(getOpenStatus());
 
-                    System.out.println("[IssueView] Applying changes to model");
-                    issue.setTitle(issueTitle.getText().trim());
-                    issue.setDescription(issueDescription.getText().trim());
-                    issue.setOpen(issueStatus.getSelectedIndex());
-
-                    System.out.println("[IssueView] Saving changes to database");
-                    issue.update();
+                    doUpdate();
 
                     ControlPanelView.controlPanelFrame.pack();
                 }

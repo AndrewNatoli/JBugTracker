@@ -1,7 +1,6 @@
 package com.andrewnatoli.jbug.controlpanel.overview.uicomponents;
 
 import com.andrewnatoli.jbug.controlpanel.ControlPanelController;
-import com.andrewnatoli.jbug.controlpanel.ControlPanelView;
 import com.andrewnatoli.jbug.controlpanel.issue.IssueModel;
 import com.andrewnatoli.jbug.controlpanel.project.ProjectModel;
 
