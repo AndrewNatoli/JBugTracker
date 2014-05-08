@@ -162,6 +162,12 @@ public class IssueModel {
     }
 
     /**
+     * setProject_id
+     * @param project_id
+     */
+    public void setProject_id(int project_id) { this.project_id = project_id; }
+
+    /**
      * update()
      * Saves the model into the database
      */

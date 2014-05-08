@@ -68,13 +68,8 @@ public abstract class IssueView extends JPanel {
     /**
      * Assemble the GUI
      */
-    protected void buildGUI(int issue_id) {
+    protected void buildGUI() {
         System.out.println("Preparing issue view");
-        if(issue_id != -1)
-            issue = new IssueModel(issue_id);
-        else
-            issue = new IssueModel();
-
         author = new UserModel(issue.getUser_id());
         setLayout(new GridLayout(3,1));
         setPreferredSize(new Dimension(600, 300));

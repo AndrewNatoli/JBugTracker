@@ -31,6 +31,15 @@ public class ControlPanelController extends ControlPanelView {
         controlPanelFrame.pack();
     }
 
+    public static void showIssue(int issue_id,int project_id) {
+        if(issue_id != -1)
+            System.err.println("Incorrect access by someone who re-programmed this wrong >:(");
+        contentPanel.removeAll();
+        contentPanel.add(new IssueController(-1,project_id));
+        controlPanelFrame.pack();
+
+    }
+
     /**
      * showOverview - Hides the current view and restores the overview
      */

@@ -23,6 +23,8 @@ public class ProjectView extends JPanel{
     protected JButton       btn_submit;
     protected ProjectModel  project;
 
+    protected JButton       btn_submitIssue;
+
     /**
      * Constructor to edit an existing project
      * @param id
@@ -50,7 +52,7 @@ public class ProjectView extends JPanel{
      */
     private void buildLayout() {
         System.out.println("[ProjectView] Building Interface");
-        setPreferredSize(new Dimension(510, 125));
+        setPreferredSize(new Dimension(510, 150));
         setMaximumSize(new Dimension(510,125));
         setBorder(BorderFactory.createTitledBorder(frameTitle));
         setLayout(new BorderLayout());
@@ -72,8 +74,11 @@ public class ProjectView extends JPanel{
 
         //Submit button calls the controller to do validation and the update
         buttons_panel = new JPanel();
-        buttons_panel.setLayout(new GridLayout(2,1));
+        buttons_panel.setLayout(new GridLayout(3,1));
 
+        /*
+            Submit button
+         */
         btn_submit = new JButton(btnText);
         btn_submit.addActionListener(new ActionListener() {
             @Override
@@ -82,7 +87,9 @@ public class ProjectView extends JPanel{
             }
         });
 
-        //Delete button
+        /*
+            Delete Button
+         */
         btn_delete = new JButton("Remove Project");
         if(project.getProject_id() == -1) {
             btn_delete.setVisible(false);
@@ -97,9 +104,26 @@ public class ProjectView extends JPanel{
             }
         });
 
+        /*
+            Add issue, button
+         */
+        btn_submitIssue = new JButton("Report an Issue");
+        if(project.getProject_id() == -1) {
+            btn_submitIssue.setVisible(false);
+        }
+        btn_submitIssue.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                ControlPanelController.showIssue(-1,project.getProject_id());
+            }
+        });
+
         //Add the buttons to our button panel
         buttons_panel.add(btn_submit);
-        buttons_panel.add(btn_delete);
+        if(project.getProject_id() != -1) {
+            buttons_panel.add(btn_submitIssue);
+            buttons_panel.add(btn_delete);
+        }
 
         //Add everything to the view
         add(projectForm, BorderLayout.CENTER);

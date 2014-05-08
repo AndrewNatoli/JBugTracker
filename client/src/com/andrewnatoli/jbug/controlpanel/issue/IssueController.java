@@ -8,7 +8,22 @@ public class IssueController extends IssueView{
      * TODO: Implement this style in the other packages
      */
     public IssueController(int issue_id) {
-        buildGUI(issue_id);
+        issue = new IssueModel(issue_id);
+        buildGUI();
+    }
+
+    /**
+     * Constructor of Justice v2 - Requires a project_id. issue_id should be -1. Used for creating an issue for a project
+     * This would be a lot cleaner if we were using PHP or Python >:(
+     * @param issue_id MUST BE -1
+     * @param project_id ID of the project we want to create the issue for
+     */
+    public IssueController(int issue_id,int project_id){
+        if(issue_id != -1)
+            System.err.println("Incorrect access by someone who edited the code >:(!!!");
+        issue = new IssueModel();
+        issue.setProject_id(project_id);
+        buildGUI();
     }
 
     /**
