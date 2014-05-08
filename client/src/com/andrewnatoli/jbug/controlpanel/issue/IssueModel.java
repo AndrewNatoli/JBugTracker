@@ -175,7 +175,7 @@ public class IssueModel {
         String q;
         //Create a new issue record in the database
         if(issue_id == -1) {
-            q = "INSERT INTO `jbug_issues` ( `title`, `description`, `user_id`, `project_id`, `date_created`, `open`, `priority`) values ( '"+title+"', '"+description+"', '"+user_id+"', '"+ project_id +"', '"+date_created+"', '"+open+"', '"+priority+"')";
+            q = "INSERT INTO `jbug_issues` ( `title`, `description`, `user_id`, `project_id`, `date_created`, `open`, `priority`, `date_closed`) values ( '"+title+"', '"+description+"', '"+user_id+"', '"+ project_id +"', '"+date_created+"', '"+open+"', '"+priority+"', '"+date_closed+"')";
             try {
                 Statement insertStatement = Database.conn.createStatement();
                 insertStatement.executeUpdate(q);

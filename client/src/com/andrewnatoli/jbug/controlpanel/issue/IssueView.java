@@ -68,7 +68,7 @@ public abstract class IssueView extends JPanel {
     /**
      * Assemble the GUI
      */
-    protected void buildGUI() {
+    protected void buildGUI(boolean isNewIssue) {
         System.out.println("Preparing issue view");
         author = new UserModel(issue.getUser_id());
         setLayout(new GridLayout(3,1));
@@ -83,9 +83,12 @@ public abstract class IssueView extends JPanel {
 
         //Title Panel
         issueTitlePanel = new JPanel();
-        issueTitlePanel.setBorder(BorderFactory.createTitledBorder("Issue #" + issue.getIssue_id()));
+        if(isNewIssue)
+            issueTitlePanel.setBorder(BorderFactory.createTitledBorder("New Issue"));
+        else
+            issueTitlePanel.setBorder(BorderFactory.createTitledBorder("Issue #" + issue.getIssue_id()));
         issueTitlePanel.setPreferredSize(new Dimension(449, 50));
-        issueTitle = new JTextArea();
+        issueTitle = new JTextArea(1,30);
         issueTitle.setEditable(false);
         issueTitle.setOpaque(false);
         issueTitle.setText(issue.getTitle());
@@ -150,19 +153,7 @@ public abstract class IssueView extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     System.out.println("Clicked button to revise ticket");
-                    remove(btn_reviseTicket);
-                    add(btn_saveChanges);
-
-                    issueDescriptionScroller.setOpaque(true);
-                    issueDescription.setEditable(true);
-                    issueTitle.setOpaque(true);
-                    issueTitle.setEditable(true);
-
-                    issueStatus.setVisible(true);
-                    issueStatus.setEditable(true);
-                    issueOpenLabel.setVisible(false);
-
-                    ControlPanelView.controlPanelFrame.pack();
+                    setEverythingToEditable();
                 }
             });
 
@@ -195,6 +186,10 @@ public abstract class IssueView extends JPanel {
             add(btn_reviseTicket);
         }
 
+        if(isNewIssue) {
+            setEverythingToEditable();
+        }
+
         System.out.println("Boom, IssueView is visible. Enjoy it.");
     }
 
@@ -225,6 +220,22 @@ public abstract class IssueView extends JPanel {
         else
             output = text;
         return output;
+    }
+
+    protected void setEverythingToEditable() {
+        remove(btn_reviseTicket);
+        add(btn_saveChanges);
+
+        issueDescriptionScroller.setOpaque(true);
+        issueDescription.setEditable(true);
+        issueTitle.setOpaque(true);
+        issueTitle.setEditable(true);
+
+        issueStatus.setVisible(true);
+        issueStatus.setEditable(true);
+        issueOpenLabel.setVisible(false);
+
+        ControlPanelView.controlPanelFrame.pack();
     }
 
 }

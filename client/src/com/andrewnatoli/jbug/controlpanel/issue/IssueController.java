@@ -9,7 +9,7 @@ public class IssueController extends IssueView{
      */
     public IssueController(int issue_id) {
         issue = new IssueModel(issue_id);
-        buildGUI();
+        buildGUI(false);
     }
 
     /**
@@ -23,7 +23,7 @@ public class IssueController extends IssueView{
             System.err.println("Incorrect access by someone who edited the code >:(!!!");
         issue = new IssueModel();
         issue.setProject_id(project_id);
-        buildGUI();
+        buildGUI(true);
     }
 
     /**
