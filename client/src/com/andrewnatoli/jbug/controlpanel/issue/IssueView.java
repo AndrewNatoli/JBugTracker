@@ -162,9 +162,11 @@ public abstract class IssueView extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
                     System.out.println("[IssueView] Clicked save changes button.");
+                    doUpdate();
                     System.out.println("[IssueView] Updating GUI Components");
                     remove(btn_saveChanges);
                     add(btn_reviseTicket);
+
 
                     issueDescriptionScroller.setOpaque(false);
                     issueDescription.setEditable(false);
@@ -172,10 +174,9 @@ public abstract class IssueView extends JPanel {
                     issueTitle.setOpaque(false);
                     issueStatus.setVisible(false);
                     issueStatus.setEditable(false);
-                    issueOpenLabel.setVisible(true);
                     issueOpenLabel.setText(getOpenStatus());
+                    issueOpenLabel.setVisible(true);
 
-                    doUpdate();
 
                     ControlPanelView.controlPanelFrame.pack();
                 }

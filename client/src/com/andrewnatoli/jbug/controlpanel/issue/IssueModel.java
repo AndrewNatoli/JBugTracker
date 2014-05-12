@@ -189,7 +189,7 @@ public class IssueModel {
         }
         //Update an existing record
         else {
-            q = "UPDATE `jbug_issues` SET `title`='"+title+"', `description`='"+description+"' WHERE `issue_id`='"+issue_id+"'";
+            q = "UPDATE `jbug_issues` SET `title`='"+title+"', `description`='"+description+"', `open`='"+open+"' WHERE `issue_id`='"+issue_id+"'";
             try {
                 Statement updateStatement = Database.conn.createStatement();
                 updateStatement.executeUpdate(q);
