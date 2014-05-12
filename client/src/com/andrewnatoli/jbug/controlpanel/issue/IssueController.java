@@ -44,5 +44,10 @@ public class IssueController extends IssueView{
 
         //Update the program's header counts
         ControlPanelController.updateHeaderCounts();
+
+        //Return to the main overview panel
+        if(issue.getIssue_id() == -1) {
+            ControlPanelController.showOverview(); //Go back to showing the overview
+        }
     }
 }
