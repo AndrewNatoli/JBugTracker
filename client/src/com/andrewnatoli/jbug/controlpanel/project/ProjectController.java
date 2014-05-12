@@ -2,6 +2,7 @@ package com.andrewnatoli.jbug.controlpanel.project;
 
 import com.andrewnatoli.jbug.controlpanel.ControlPanelController;
 import com.andrewnatoli.jbug.controlpanel.overview.OverviewController;
+import com.sun.deploy.panel.ControlPanel;
 
 import javax.swing.*;
 
@@ -24,6 +25,7 @@ public class ProjectController {
         else {
             project.setTitle(title);
             project.update();
+            ControlPanelController.updateHeaderCounts(); //Update the header counts
             ControlPanelController.updateProjectList(); //Refresh the project list
             ControlPanelController.showOverview(); //Go back to showing the overview
         }
@@ -36,10 +38,11 @@ public class ProjectController {
     public static void doDelete(ProjectModel project) {
         if(project.delete()) {
             JOptionPane.showMessageDialog(null,"Project deleted.");
+            ControlPanelController.updateHeaderCounts(); //Update the header counts
             ControlPanelController.updateProjectList(); //Refresh the project list
             ControlPanelController.showOverview();      //Go back to showing the overview
         }
         else
-            JOptionPane.showMessageDialog(null,"Error removing project.");
+            JOptionPane.showMessageDialog(null,"You can not remove a project with tickets assigned to it.");
     }
 }

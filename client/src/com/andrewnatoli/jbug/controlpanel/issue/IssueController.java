@@ -1,5 +1,8 @@
 package com.andrewnatoli.jbug.controlpanel.issue;
 
+import com.andrewnatoli.jbug.controlpanel.ControlPanelController;
+import com.sun.deploy.panel.ControlPanel;
+
 public class IssueController extends IssueView{
 
     /**
@@ -38,5 +41,8 @@ public class IssueController extends IssueView{
         System.out.println("Open status... " + issueStatus.getSelectedIndex());
         System.out.println("[IssueView] Saving changes to database");
         issue.update();
+
+        //Update the program's header counts
+        ControlPanelController.updateHeaderCounts();
     }
 }
